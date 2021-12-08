@@ -1,0 +1,18 @@
+<form method="POST" action="/exercises/<%= exercise.id  %>/?_method=PUT"> 
+    <label for="name">Name</label>
+    <input type="text" name="name"value=" <%= exercise.name %>  "> 
+  
+    <label for="weight">Weight</label>
+    <input type="text" name="weight"value=" <%= exercise.weight %>  "> 
+
+    <label for="reps">Reps</label>
+    <input type="text" name="reps"value=" <%= exercise.reps %>  "> 
+
+    <label for="sets">Sets</label>
+    <input type="text" name="sets"value=" <%= exercise.sets %>  "> 
+
+    <label for="bodyGroup">Body Group</label>
+    <input type="text" name="bodyGroup"value=" <%= exercise.bodyGroup %>  ">
+  
+    <input type="submit">
+  </form>

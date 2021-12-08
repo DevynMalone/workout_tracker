@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      //this goes inside of user model 
+      models.User.hasMany(models.Exercise,{foreignKey:'userId'})
+      //this goes inside of user model
+      models.User.hasMany(models.Workout,{foreignKey:'userId'})
     }
   };
   User.init({

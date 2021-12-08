@@ -6,6 +6,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('./config/ppConfig');
 const isLoggedIn = require('./middleware/isLoggedIn');
+const methodOverride = require('method-override');
 
 const SECRET_SESSION = process.env.SECRET_SESSION;
 console.log(SECRET_SESSION);
@@ -21,6 +22,7 @@ app.use(session({
   resave: false,             // Save the session even if it's modified, make this false
   saveUninitialized: true    // If we have a new session, we save it, therefore making that true
 }));
+app.use(methodOverride('_method'));
 
 app.use(flash());
 
@@ -46,6 +48,8 @@ app.get('/profile', isLoggedIn, (req, res) => {
 
 // controllers
 app.use('/auth', require('./controllers/auth'));
+app.use('/exercises', require('./controllers/exercises'));
+
 
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {
