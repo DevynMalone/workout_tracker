@@ -3,12 +3,16 @@ const router = express.Router();
 const passport = require("../config/ppConfig");
 
 const { Exercise } = require('../models');
+const { Workout } = require('../models');
 
-router.get('/', function (req, res) {
-    Exercise.findAll()  //===> name of model you want to select 
+router.get('/:id', function (req, res) {
+    let workoutId = Number(req.params.id)
+    Exercise.findAll({
+        where:{ workoutId:workoutId }
+    })  //===> name of model you want to select 
         .then(function (exerciseList) {
             console.log('FOUND ALL exercise', exerciseList);
-            res.render('exercises/index', { exercises: exerciseList });
+            res.render('exercises/index', { workoutId:workoutId, exercises: exerciseList });
         })
         .catch(function (err) {
             console.log('ERROR', err);
@@ -19,9 +23,11 @@ router.get('/', function (req, res) {
 
 //==================== EXAMPLE: GET:- New (Create form for user to add new Exercise)====\\
 
-router.get('/new', function (req, res) {
-    res.render('exercises/new')
-})
+router.get('/new/:id', function (req, res) {
+    let workoutId = Number(req.params.id);
+    console.log('IS THIS A NUMBER',workoutId);
+    res.render('exercises/new',{workoutId:workoutId});
+});
 //========================== END of EXAMPLE ===================\\
 
 //=================== EXAMPLE: GET- EDIT (Edit Current Exercise in Table)===========\\
@@ -34,7 +40,7 @@ router.get('/edit/:id', function (req, res) {
                 res.render('exercises/edit', { exercise });
             } else {
                 console.log('This exercise does not exist');  // render a 404 page
-                // res.render('404', {message:'Exercise does not exist'}) //makes 404 error page
+                res.render('404', {message:'Exercise does not exist'}) //makes 404 error page
             }
         })
         .catch(function (err) {
@@ -47,8 +53,8 @@ router.get('/edit/:id', function (req, res) {
 
 
 //=================== EXAMPLE: GET- SHOW (Find and Display 1 Exercise on page) !!!MUST BE AT THE END OF EXERCISE GETS!!===========\\
-router.get('/:id', function (req, res) {
-    console.log('PARAMS', req.params);
+router.get('/s/:id', function (req, res) {
+    console.log('BODY', req.params);
     let exerciseIndex = Number(req.params.id);
     console.log('IS THIS A NUMBER?', exerciseIndex)
     Exercise.findByPk(exerciseIndex)
@@ -64,6 +70,8 @@ router.get('/:id', function (req, res) {
         })
         .catch(function (err) {
             console.log('ERROR', err)
+            res.render('404', {message:'Exercise does not exist'})
+
         })
 
 })
@@ -71,27 +79,40 @@ router.get('/:id', function (req, res) {
 
 
 //==================== EXAMPLE: POST:- New (Create form for user to add new Exercise)====\\
-router.post('/', function (req, res) {
+router.post('/:id', function (req, res) {
     console.log('SUBMITTED FORM', req.body);
-    Exercise.create({
+    let workoutId = Number(req.params.id)
+    Workout.findOne({
+        where:{id:workoutId}
+    })
+    .then(Workout => {
+        Workout.createExercise({
         name: req.body.name,
         weight: Number(req.body.weight),
         reps: Number(req.body.reps),
         sets: Number(req.body.sets),
-        bodyGroup: req.body.bodyGroup
+        bodyGroup: req.body.bodyGroup,
+        userId: req.user.get().id,
     })
         .then(function (newExercise) {
             console.log('NEW EXERCISE', newExercise.toJSON());
             newExercise = newExercise.toJSON();
-            res.redirect(`/exercises/${newExercise.id}`);
+            res.redirect(`/exercises/s/${newExercise.id}`);
         })
         .catch(function (err) {
             console.log('ERROR', err);
         })
+    })
 })
 
 
 //========================== END of EXAMPLE ===================\\
+
+
+
+
+
+
 
 //=================== EXAMPLE: DELETE- DELETE (delete Current Exercise in Table)===========\\
 router.delete('/:id', function (req, res) {
@@ -125,7 +146,7 @@ router.put('/:id', function (req, res) {
     }, { where: { id: exerciseIndex } })
         .then(function (response) {
             console.log('AFTER UPDATE', response);
-            res.redirect(`/exercises/${exerciseIndex}`);
+            res.redirect(`/exercises/s/${exerciseIndex}`);
         })
         .catch(function (err) {
             console.log('ERROR', err)

@@ -7,11 +7,13 @@
     <title>All EXERCISES</title>
 </head>
 <body>
+    <h1>EXERCISES</h1>
+    <a href="/workouts/<%= workoutId %>">BACK</a>
     <% for( let i = 0; i < exercises.length; i++ ) { %>
     <% let a = exercises[i]; %> 
     <% a = a.toJSON() %> 
     <p> <%= a.name%> </p>
-    <a href="/exercises/<%= a.id %>">View Exercise</a>
+    <a href="/exercises/s/<%= a.id %>">View</a>
     <% } %>
 </body>
 </html>

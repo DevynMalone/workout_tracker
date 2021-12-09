@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WORKOUT TRACKER</title>
+</head>
+<body>
+    <a href="/workouts">BACK</a>
+    <h1><%= workout.day %></h1>
+    <h2><%= workout.duration %> </h2>
+    <a href="/workouts/edit/<%= workout.id %>">Edit</a> 
+    <a href="/exercises/<%= workout.id %>">View Exercises</a>
+    <a href="/exercises/new/<%= workout.id %>">Add New Exercise</a> 
+    
+
+    <form method="POST" action="/workouts/<%= workout.id %>/?_method=DELETE" >
+        <input type="submit" value="Delete Workout">
+    </form>
+</body>
+</html>

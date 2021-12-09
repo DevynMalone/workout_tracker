@@ -1,0 +1,9 @@
+<form method="POST" action="/workouts/<%= workout.id  %>/?_method=PUT"> 
+    <label for="day">Day</label>
+    <input type="text" name="day"value=" <%= workout.day %>  "> 
+  
+    <label for="duration">Duration(Mins)</label>
+    <input type="text" name="duration"value=" <%= workout.duration %>  "> 
+
+   <input type="submit">
+  </form>

@@ -48,7 +48,8 @@ app.get('/profile', isLoggedIn, (req, res) => {
 
 // controllers
 app.use('/auth', require('./controllers/auth'));
-app.use('/exercises', require('./controllers/exercises'));
+app.use('/exercises', isLoggedIn, require('./controllers/exercises'));
+app.use('/workouts', isLoggedIn, require('./controllers/workouts'));
 
 
 const PORT = process.env.PORT || 3000;

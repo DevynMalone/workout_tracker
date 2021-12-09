@@ -1,4 +1,4 @@
-<form method="POST" action="/exercises">
+<form method="POST" action="/exercises/<%= workoutId %>">
     <label for="name">Name</label>
     <input type="text" name="name">
   
@@ -11,8 +11,17 @@
     <label for="sets">Sets</label>
     <input id="sets" type="text" name="sets">
 
-    <label for="bodygroup">Body Group</label>
-    <input id="bodygroup" type="text" name="bodygroup">
-  
+    <label for="bodyGroup">Body Group</label>
+    <input id="bodyGroup" type="text" name="bodyGroup">
+
+
+
+    <!-- <label for="workoutId">Choose Workout</label>
+    <select name="workoutId" id="workoutId"> -->
+
+    </select>
+   
+
+
     <input type="submit">
   </form>
