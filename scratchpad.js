@@ -1,15 +1,12 @@
+require('dotenv').config();
 const axios = require('axios');
-const API_KEY = "xGU2Bbmq7Bcwi6Oss2t0NTu1igEG_QwrwrysCiHvuxg";
-
-const searchTerm = 'mexico';
-
-axios.get(`https://api.unsplash.com/search/photos/?client_id=${API_KEY}&&query=${searchTerm}`) // /users/:username/photos
-.then(response => {
-    // console.log(response.data);
-    const array = response.data.results;
-    for (let i = 0; i < array.length; i++) {
-        let photoObj = array[i];
-        let fullPhoto = photoObj.urls.full;
-        console.log(fullPhoto);
-    }
-});
+console.log(process.env.API_KEY)
+axios.get(`https://wger.de/api/v2/workout/`, { headers: { 'Authorization': `Token ${process.env.API_KEY}` } })
+.then(function(response) {
+   console.log('... here is the response that is coming back ...');
+   console.log(response.data);
+})
+.catch(function(error) {
+   console.log('... there is an error getting the data ...');
+   console.log(error);
+})

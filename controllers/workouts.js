@@ -5,7 +5,10 @@ const passport = require("../config/ppConfig");
 const { Workout } = require('../models');
 
 router.get('/', function (req, res) {
-    Workout.findAll()  //===> name of model you want to select 
+    console.log(req.user.get().id)
+    Workout.findAll({
+       where: {userId:req.user.get().id}
+    }) //===> name of model you want to select 
         .then(function (workoutList) {
             console.log('FOUND ALL workout', workoutList);
             res.render('workouts/index', { workouts: workoutList });
