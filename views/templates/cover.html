@@ -66,12 +66,10 @@
                         </h2>
                         <br>
                         <p class="has-text-centered">
-                            <a class="button is-medium is-info is-outlined">
-                                View All Workouts
-                            </a>
-                            <a class="button is-medium is-info is-outlined">
-                                Add New Workout
-                            </a>
+                            <% if (currentUser) { %>  
+                                <a class="button is-medium is-info is-outlined"href="/workouts">View All WORKOUTS </a><br>  
+                                <a class="button is-medium is-info is-outlined"href="/workouts/new">Add New WORKOUT </a><br>  
+                                 <% } %>
                         </p>
                     </div>
                 </div>

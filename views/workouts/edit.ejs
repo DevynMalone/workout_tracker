@@ -1,4 +1,4 @@
-<form method="POST" action="/workouts/<%= workout.id  %>/?_method=PUT"> 
+<!-- <form method="POST" action="/workouts/<%= workout.id  %>/?_method=PUT"> 
     <label for="day">Day</label>
     <input type="text" name="day"value=" <%= workout.day %>  "> 
   
@@ -7,3 +7,42 @@
 
    <input type="submit">
   </form>
+
+
+
+
+  //=============bulma============\\ -->
+  <!DOCTYPE html>
+<html>
+  <body>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Workout Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/neumorphic-login.css">
+  </head>
+
+  <form method="POST" action="/workouts/<%= workout.id  %>/?_method=PUT">
+    <div class="field">
+      <div class="control">
+        <label for="day">Day</label>
+        <input class="input is-medium is-rounded" type="text" name="day"value=" <%= workout.day %>  ">
+      </div>
+    </div>
+    <div class="field">
+      <div class="control">
+        <label for="duration">Duration(Mins)</label>
+        <input class="input is-medium is-rounded" type="text" name="duration"value=" <%= workout.duration %>  ">
+      </div>
+    </div>
+    <br />
+    <button class="button is-block is-fullwidth is-primary is-medium is-rounded" type="submit">
+      Edit Workout
+    </button>
+  </form>
+</body>
+
+  </html>
